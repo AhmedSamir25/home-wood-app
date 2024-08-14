@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:homewood/core/theme/color_app.dart';
 
 class AuthTextField extends StatelessWidget {
-  const AuthTextField({super.key, required this.controller, required this.labelText, required this.suffixIcon, });
+  const AuthTextField({super.key, required this.controller, required this.labelText, required this.suffixIcon, required this.obscureText, });
   final TextEditingController controller;
   final String labelText;
   final Widget suffixIcon;
+  final bool obscureText;
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
-        label: Text(labelText),
+        label: Text(labelText,style: const TextStyle(color: AppColors.blackColor,fontFamily: "Rubik"),),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
         ),
@@ -22,6 +24,7 @@ class AuthTextField extends StatelessWidget {
           ),
         ),
       ),
+      obscureText: obscureText,
     );
   }
 }

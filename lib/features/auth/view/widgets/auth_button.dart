@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/theme/style_text.dart';
 
 class AuthButton extends StatelessWidget {
@@ -10,7 +11,7 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(onPressed: onPressed,
         style: const ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(Colors.amber)),
+            backgroundColor: WidgetStatePropertyAll(AppColors.amberColor)),
         child: SizedBox(
             height: 40.h,
             width: 170.w,

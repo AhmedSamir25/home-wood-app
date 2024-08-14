@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:homewood/features/auth/view/widgets/auth_button.dart';
 import 'package:homewood/features/auth/view/widgets/auth_text_field.dart';
+import 'package:homewood/features/auth/view/widgets/have_account_ornot.dart';
 import 'package:homewood/features/auth/view/widgets/head_body_text.dart';
+import 'package:homewood/features/auth/view/widgets/password_text_field.dart';
 
 class SignupViewBody extends StatelessWidget {
   const SignupViewBody({super.key});
@@ -14,7 +16,7 @@ class SignupViewBody extends StatelessWidget {
     final nameController = TextEditingController();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.w),
-      child: Column(
+      child: ListView(
         children: [
           const HeadBodyText(
             headText: "Sign up",
@@ -26,25 +28,28 @@ class SignupViewBody extends StatelessWidget {
           AuthTextField(
               controller: nameController,
               labelText: "Name",
-              suffixIcon: const Icon(Icons.person)),
+              suffixIcon: const Icon(Icons.person),
+              obscureText: false,
+          ),
           SizedBox(
             height: 12.h,
           ),
           AuthTextField(
               controller: emailController,
               labelText: "Email",
-              suffixIcon: const Icon(Icons.email)),
+              suffixIcon: const Icon(Icons.email),
+              obscureText: false,
+          ),
           SizedBox(
             height: 12.h,
           ),
-          AuthTextField(
-              controller: passwordController,
-              labelText: "Password",
-              suffixIcon: const Icon(Icons.password)),
+          PasswordTextField(controller: passwordController),
           SizedBox(
             height: 17.h,
           ),
-          AuthButton(onPressed: () {}, buttonText: "Button Text")
+          HaveAccountOrNot(onPressed: (){}, text: "do you have account?",textButton: "Sign in",),
+          SizedBox(height: 10.h,),
+          AuthButton(onPressed: () {}, buttonText: "Sign Up")
         ],
       ),
     );
