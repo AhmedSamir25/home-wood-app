@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/theme/style_text.dart';
 
 class HaveAccountOrNot extends StatelessWidget {
@@ -14,7 +15,7 @@ class HaveAccountOrNot extends StatelessWidget {
           children: [
             Text(text,style: StyleText.textStyle14,),
             TextButton(onPressed: onPressed,
-              child: Text(textButton,style: StyleText.textStyle14,),),
+              child: Text(textButton,style: StyleText.textStyle14.copyWith(color: AppColors.darkYellow)),),
           ],
         ));
   }
