@@ -9,7 +9,7 @@ class HeadBodyText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 60.h),
+      padding: EdgeInsets.only(top: 35.h),
       child: Center(
         child:  Column(
           children: [

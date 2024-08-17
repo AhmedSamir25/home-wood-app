@@ -9,14 +9,12 @@ class HaveAccountOrNot extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return Align(
-        alignment: AlignmentDirectional.topStart,
-        child: Row(
+    return Row(
           children: [
             Text(text,style: StyleText.textStyle14,),
             TextButton(onPressed: onPressed,
               child: Text(textButton,style: StyleText.textStyle14.copyWith(color: AppColors.darkYellow)),),
           ],
-        ));
+        );
   }
 }
