@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:homewood/core/functions/signin_valid_fuction.dart';
+import 'package:homewood/core/router/app_router.dart';
+import 'package:homewood/core/theme/style_text.dart';
 import 'package:homewood/features/auth/view/widgets/auth_button.dart';
 import 'package:homewood/features/auth/view/widgets/auth_text_field.dart';
 import 'package:homewood/features/auth/view/widgets/have_account_ornot.dart';
@@ -42,6 +44,11 @@ class SignInViewBody extends StatelessWidget {
           SizedBox(
             height: 17.h,
           ),
+          Align(
+              alignment: AlignmentDirectional.topEnd,
+              child: TextButton(onPressed: (){
+                GoRouter.of(context).push(AppRouter.forgetPassword);
+              },child: Text('Forget Password?',style: StyleText.textStyle14),)),
           HaveAccountOrNot(onPressed: (){GoRouter.of(context).pop();}, text: "don’t you have account?",textButton: "Sign Up",),
           SizedBox(height: 10.h,),
           AuthButton(onPressed: () {
