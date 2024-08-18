@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:homewood/core/functions/signup_vaild_fuction.dart';
 import 'package:homewood/core/router/app_router.dart';
+import 'package:homewood/core/service/app_service.dart';
 import 'package:homewood/features/auth/view/widgets/auth_button.dart';
 import 'package:homewood/features/auth/view/widgets/auth_text_field.dart';
 import 'package:homewood/features/auth/view/widgets/have_account_ornot.dart';
@@ -80,7 +82,10 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           AuthButton(onPressed: () {
             signupAndValidFunction(context: context,name: nameController.text,
               email: emailController.text,
-              password: passwordController.text, onPerasd: (){},
+              password: passwordController.text, onPerasd: (){
+                ApiService(Dio()).createUser(userName: nameController.text,
+                    email: emailController.text, password: passwordController.text);
+              },
             );},
               buttonText: "Sign Up"),
           SizedBox(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:homewood/core/router/app_router.dart';
+import 'package:homewood/core/service/service_lacetor.dart';
 
 void main() {
+  setupServiceLocator();
   runApp(const MyApp());
 }
 
