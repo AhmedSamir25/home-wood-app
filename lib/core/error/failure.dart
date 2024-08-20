@@ -12,33 +12,35 @@ class ServerFailure extends Failure {
   factory ServerFailure.fromDioError(DioException dioException) {
     switch (dioException.type) {
       case DioException.connectionTimeout:
-        return ServerFailure('Connection timeout with ApiServer');
+        return ServerFailure('Connection timed out. Please try again.');
 
       case DioException.sendTimeout:
-        return ServerFailure('Send timeout with ApiServer');
+        return ServerFailure('Sending data took too long. Please try again.');
 
       case DioException.receiveTimeout:
-        return ServerFailure('Receive timeout with ApiServer');
+        return ServerFailure('Receiving data took too long. Please try again.');
 
       case DioException.badResponse:
         return ServerFailure.fromResponse(
-            dioException.response!.statusCode, dioException.response!.data);
+            dioException.response?.statusCode, dioException.response?.data);
+
       case DioException.requestCancelled:
-        return ServerFailure('Request to ApiServer was canceld');
+        return ServerFailure('The request was cancelled. Please try again.');
+
       default:
-        return ServerFailure(dioException.message.toString());
+        return ServerFailure('An unexpected error occurred. Please try again.');
     }
   }
 
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(response['error']['message']);
+      return ServerFailure('Request is invalid or unauthorized. Please check and try again.');
     } else if (statusCode == 404) {
-      return ServerFailure('Your request not found, Please try later!');
+      return ServerFailure('The requested resource was not found. Please try again later.');
     } else if (statusCode == 500) {
-      return ServerFailure('Internal Server error, Please try later');
+      return ServerFailure('There was a problem with the server. Please try again later.');
     } else {
-      return ServerFailure('Opps There was an Error, Please try again');
+      return ServerFailure('An unexpected error occurred. Please try again.');
     }
   }
 }

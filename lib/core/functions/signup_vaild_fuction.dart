@@ -6,7 +6,7 @@ import 'package:homewood/core/theme/color_app.dart';
 final RegExp passwordRegExp = RegExp(
   r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$])[A-Za-z\d@#$]{8,}$',
 );
-void signupAndValidFunction({required BuildContext context ,required String name,required String email ,
+void signupValidFunction({required BuildContext context ,required String name,required String email ,
   required String password,}){
   if(name.isEmpty && email.isEmpty && password.isEmpty){
     showSnackBar(context, "please feal all fields", AppColors.redColor);

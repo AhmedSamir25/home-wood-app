@@ -26,6 +26,18 @@ final class FieldSendToken extends AuthState{
   FieldSendToken({required this.message});
 }
 
+final class CheckTokenSuccess extends AuthState{}
+
+final class FieldCheckToken extends AuthState{
+  final String message;
+  FieldCheckToken({required this.message});
+}
+
 final class ResetPasswordSuccess extends AuthState{}
 
-final class FieldResetPassword extends AuthState{}
+final class FieldResetPassword extends AuthState{
+  final String message;
+  FieldResetPassword({required this.message});
+}
+
+final class AuthLoading extends AuthState{}

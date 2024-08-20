@@ -12,6 +12,7 @@ abstract class AppRouter {
   static const String forgetPassword = "/forgetPassword";
   static const String checkToken = "/checkToken";
   static const String resetPasswordView = "/resetPasswordView";
+  static const String homeView = "/homeView";
   static final router = GoRouter(routes: [
     GoRoute(
       path: home,
@@ -27,7 +28,7 @@ abstract class AppRouter {
     builder: (context, state) => const CheckTokenView(),
     ),
     GoRoute(path: resetPasswordView,
-    builder:  (context, state) => const ResetPasswordView(),
+      builder:  (context, state) => const ResetPasswordView(),
     )
   ]);
 }

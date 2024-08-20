@@ -26,38 +26,60 @@ class AuthRepoImpl implements AuthRepo {
     } on DioException catch (dioError) {
       return Left(ServerFailure.fromDioError(dioError));
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ServerFailure('An unexpected error occurred. Please try again.'));
     }
   }
 
   @override
-  Future<Either<Failure, AuthModel>> forgetPassword({required String email}) async{
-    try{
+  Future<Either<Failure, AuthModel>> forgetPassword({required String email}) async {
+    try {
       final response = await apiService.forgetPassword(email: email);
-    return Right(response);
-    }on DioException catch (e){
-      return Left(ServerFailure(e.toString()));
+      return Right(response);
+    } on DioException catch (dioError) {
+      return Left(ServerFailure.fromDioError(dioError));
+    } catch (e) {
+      return Left(ServerFailure('An unexpected error occurred. Please try again.'));
     }
   }
 
   @override
-  Future<Either<Failure, AuthModel>> loginUser({required String email, required String password}) async{
-    try{
+  Future<Either<Failure, AuthModel>> loginUser({required String email, required String password}) async {
+    try {
       final response = await apiService.loginUser(email: email, password: password);
       return Right(response);
-    }on DioException catch (e){
-      return Left(ServerFailure(e.toString()));
+    } on DioException catch (dioError) {
+      return Left(ServerFailure.fromDioError(dioError));
     }
   }
 
   @override
-  Future<Either<Failure, AuthModel>> resetPassword({required String email, required String token,
-    required String password}) async{
-    try{
-      final response = await apiService.resetPassword(email: email,token: token,password: password);
+  Future<Either<Failure, AuthModel>> resetPassword({
+    required String email,
+    required int token,
+    required String password,
+  }) async {
+    try {
+      final response = await apiService.resetPassword(email: email, token: token, password: password);
       return Right(response);
-    }on DioException catch (e){
-      return Left(ServerFailure(e.toString()));
+    } on DioException catch (dioError) {
+      return Left(ServerFailure.fromDioError(dioError));
+    } catch (e) {
+      return Left(ServerFailure('An unexpected error occurred. Please try again.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AuthModel>> checkToken({
+    required String email,
+    required int token,
+  }) async {
+    try {
+      final response = await apiService.checkToken(email: email, token: token);
+      return Right(response);
+    } on DioException catch (dioError) {
+      return Left(ServerFailure.fromDioError(dioError));
+    } catch (e) {
+      return Left(ServerFailure('An unexpected error occurred. Please try again.'));
     }
   }
 }

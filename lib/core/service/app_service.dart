@@ -34,10 +34,18 @@ class ApiService {
     );
     return AuthModel.fromJson(response.data);
   }
+  // check token
+  Future<AuthModel> checkToken({required String email, required int token})async{
+    var response = await _dio.get("$baseUrl/homewood/checktoken",data: {
+      'email' : email, 'token' : token,
+    });
+    return AuthModel.fromJson(response.data);
+  }
+  // reset password
   Future<AuthModel> resetPassword({
-    required String token,required String email,required String password,
+    required int token,required String email,required String password,
   }) async {
-    var response = await _dio.post("$baseUrl/homewood/resetpassword",data: {
+    var response = await _dio.put("$baseUrl/homewood/resetpassword",data: {
       'token': token,'email': email,'password': password,
     },
     );

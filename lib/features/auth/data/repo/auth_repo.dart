@@ -12,7 +12,10 @@ abstract class AuthRepo {
   Future<Either<Failure, AuthModel>> forgetPassword({
     required String email,
   });
+  Future<Either<Failure, AuthModel>> checkToken({
+    required String email, required int token,
+});
  Future<Either<Failure , AuthModel>> resetPassword({
-    required String email, required String token, required String password,
+    required String email, required int token, required String password,
 });
 }
