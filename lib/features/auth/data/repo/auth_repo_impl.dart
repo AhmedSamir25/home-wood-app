@@ -22,14 +22,41 @@ class AuthRepoImpl implements AuthRepo {
         email: email,
         password: password,
       );
-
-      // تحويل الاستجابة إلى AuthModel
-      AuthModel user = AuthModel.fromJson(response as Map<String, dynamic>);
-
-      return Right(user);
+      return Right(response);
     } on DioException catch (dioError) {
       return Left(ServerFailure.fromDioError(dioError));
     } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AuthModel>> forgetPassword({required String email}) async{
+    try{
+      final response = await apiService.forgetPassword(email: email);
+    return Right(response);
+    }on DioException catch (e){
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AuthModel>> loginUser({required String email, required String password}) async{
+    try{
+      final response = await apiService.loginUser(email: email, password: password);
+      return Right(response);
+    }on DioException catch (e){
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AuthModel>> resetPassword({required String email, required String token,
+    required String password}) async{
+    try{
+      final response = await apiService.resetPassword(email: email,token: token,password: password);
+      return Right(response);
+    }on DioException catch (e){
       return Left(ServerFailure(e.toString()));
     }
   }

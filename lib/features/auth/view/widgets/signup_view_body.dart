@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:homewood/core/functions/signup_vaild_fuction.dart';
 import 'package:homewood/core/router/app_router.dart';
-import 'package:homewood/core/service/service_lacetor.dart';
-import 'package:homewood/features/auth/data/repo/auth_repo.dart';
+import 'package:homewood/features/auth/logic/auth_cubit.dart';
 import 'package:homewood/features/auth/view/widgets/auth_button.dart';
 import 'package:homewood/features/auth/view/widgets/auth_text_field.dart';
 import 'package:homewood/features/auth/view/widgets/have_account_ornot.dart';
@@ -28,8 +28,6 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   bool hasUpperCase = false;
   bool hasLowerCase = false;
   bool hasPasswordLength = false;
-  final authRepo = getIt<AuthRepo>();
-
   @override
   void initState() {
     super.initState();
@@ -46,64 +44,77 @@ class _SignupViewBodyState extends State<SignupViewBody> {
       hasPasswordLength = password.length == 8 || password.length > 8;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
-      child: ListView(
-        children: [
-          const HeadBodyText(
-            headText: "Sign up",
-            bodyText: "Join us to find the best \n     types of furniture",
-          ),
-          SizedBox(
-            height: 26.h,
-          ),
-          AuthTextField(
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is CreateUserSuccess) {
+          //TODO
+        }
+        if (state is FieldCreateUser) {
+          //TODO
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
+        child: ListView(
+          children: [
+            const HeadBodyText(
+              headText: "Sign up",
+              bodyText: "Join us to find the best \n     types of furniture",
+            ),
+            SizedBox(height: 26.h,),
+            AuthTextField(
               controller: nameController,
               labelText: "Name",
               suffixIcon: const Icon(Icons.person),
               obscureText: false,
-          ),
-          SizedBox(
-            height: 12.h,
-          ),
-          AuthTextField(
+            ),
+            SizedBox(height: 12.h,),
+            AuthTextField(
               controller: emailController,
               labelText: "Email",
               suffixIcon: const Icon(Icons.email),
               obscureText: false,
-          ),
-          SizedBox(height: 12.h,),
-          PasswordTextField(controller: passwordController),
-          SizedBox(height: 12.h,),
-          RowValidPassword(numberAdd: hasNumber,specialChar: hasSpecialChar,
-            lowChar:hasLowerCase ,upChar:hasUpperCase,passwordLength: hasPasswordLength,),
-          SizedBox(height: 15.h,),
-          AuthButton(onPressed: () {
-            signupAndValidFunction(context: context,name: nameController.text,
-              email: emailController.text,
-              password: passwordController.text,
-            );
-            if (hasNumber && hasPasswordLength && hasUpperCase && hasLowerCase && hasSpecialChar == true){
-              authRepo.createUser(name: nameController.text, email: emailController.text,
-                  password: passwordController.text)
-                  .then((result) {
-                result.fold(
-                      (failure) => print('Error: ${failure.errMessage}'),
-                      (users) => print('User Created: $users'),
-                );
-              });
-            }
-            },
-              buttonText: "Sign Up"),
-          SizedBox(
-            height: 17.h,
-          ),
-      HaveAccountOrNot(onPressed: (){
-            GoRouter.of(context).push(AppRouter.signIn);
-          }, text: "do you have account?",textButton: "Sign in",),
-        ],
+            ),
+            SizedBox(height: 12.h,),
+            PasswordTextField(controller: passwordController),
+            SizedBox(height: 12.h,),
+            RowValidPassword(
+              numberAdd: hasNumber,
+              specialChar: hasSpecialChar,
+              lowChar: hasLowerCase,
+              upChar: hasUpperCase,
+              passwordLength: hasPasswordLength,
+            ),
+            SizedBox(height: 15.h,),
+            AuthButton(
+                onPressed: () {
+                  if (hasNumber && hasPasswordLength && hasUpperCase && hasLowerCase && hasSpecialChar == true) {
+                    context.read<AuthCubit>().createUser(
+                        name: nameController.text,
+                        email: emailController.text,
+                        password: passwordController.text);
+                  }
+                  signupAndValidFunction(
+                    context: context,
+                    name: nameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                  );
+                },
+                buttonText: "Sign Up"),
+            SizedBox(height: 17.h,),
+            HaveAccountOrNot(
+              onPressed: () {
+                GoRouter.of(context).push(AppRouter.signIn);
+              },
+              text: "do you have account?",
+              textButton: "Sign in",
+            ),
+          ],
+        ),
       ),
     );
   }
