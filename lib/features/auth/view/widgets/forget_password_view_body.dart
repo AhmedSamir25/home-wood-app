@@ -17,42 +17,61 @@ class ForgetPasswordViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final emailController = TextEditingController();
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if(state is SendTokenSuccess){
+        if (state is SendTokenSuccess) {
           GoRouter.of(context).push(AppRouter.checkToken);
         }
-        if(state is FieldSendToken){
+        if (state is FieldSendToken) {
           showSnackBar(context, state.message, AppColors.amberColor);
         }
-        if(state is AuthLoading){
-          customCircularProgressIndicator(context:context);}
+        if (state is AuthLoading) {
+          customCircularProgressIndicator(context: context);
+        }
       },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-        child: ListView(
-          children: [
-            SizedBox(height: 100.h,),
-            AuthTextField(controller: emailController,
-                labelText: "Email", suffixIcon: const Icon(Icons.email),
-                obscureText: false),
-            SizedBox(height: 20.h,),
-            AuthButton(onPressed: () {
-              if(!EmailValidator.validate(emailController.text)){
-                showSnackBar(context, "message", AppColors.redColor);
-                return;
-              }
-              if(emailController.text.isNotEmpty){
-                context.read<AuthCubit>().forgetPassword(email: emailController.text);
-                context.read<AuthCubit>().email = emailController.text;
-              }else{
-                showSnackBar(context, "message", AppColors.redColor);
-              }
-            },
-                buttonText: "send token")
-          ],
-        ),
-      ),
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+          child: Stack(
+            children: [
+              ListView(
+                children: [
+                  SizedBox(
+                    height: 100.h,
+                  ),
+                  AuthTextField(
+                      controller: emailController,
+                      labelText: "Email",
+                      suffixIcon: const Icon(Icons.email),
+                      obscureText: false),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  AuthButton(
+                      onPressed: () {
+                        if (!EmailValidator.validate(emailController.text)) {
+                          showSnackBar(context, "message", AppColors.redColor);
+                          return;
+                        }
+                        if (emailController.text.isNotEmpty) {
+                          context
+                              .read<AuthCubit>()
+                              .forgetPassword(email: emailController.text);
+                          context.read<AuthCubit>().email =
+                              emailController.text;
+                        } else {
+                          showSnackBar(context, "message", AppColors.redColor);
+                        }
+                      },
+                      buttonText: "send token")
+                ],
+              ),
+              if (state is AuthLoading)
+                customCircularProgressIndicator(context: context)
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -17,7 +17,7 @@ class CheckTokenView extends StatelessWidget {
   Widget build(BuildContext context) {
     String tokenCode = '';
     final email = context.read<AuthCubit>().email;
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is CheckTokenSuccess) {
           GoRouter.of(context).push(
@@ -27,45 +27,50 @@ class CheckTokenView extends StatelessWidget {
         if (state is FieldCheckToken) {
           showSnackBar(context, state.message, AppColors.redColor);
         }
-        if (state is AuthLoading) {
-          customCircularProgressIndicator(context: context);
-        }
       },
-      child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-          child: ListView(
-            children: [
-              SizedBox(
-                height: 100.h,
-              ),
-              OtpTextField(
-                numberOfFields: 6,
-                borderColor: AppColors.amberColor,
-                showFieldAsBox: true,
-                onCodeChanged: (String code) {
-                  tokenCode += code;
-                },
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              AuthButton(
-                  onPressed: () {
-                    if (tokenCode.length == 6) {
-                      context.read<AuthCubit>().checkToken(
-                          email: email, token: int.parse(tokenCode));
-                      context.read<AuthCubit>().tokenField =
-                          int.parse(tokenCode);
-                    } else {
-                      showSnackBar(context, "messagexx", AppColors.redColor);
-                    }
-                  },
-                  buttonText: "verify token")
-            ],
+      builder: (context, state) {
+        return Scaffold(
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+            child: Stack(
+              children: [
+                ListView(
+                  children: [
+                    SizedBox(
+                      height: 100.h,
+                    ),
+                    OtpTextField(
+                      numberOfFields: 6,
+                      borderColor: AppColors.amberColor,
+                      showFieldAsBox: true,
+                      onCodeChanged: (String code) {
+                        tokenCode += code;
+                      },
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    AuthButton(
+                        onPressed: () {
+                          if (tokenCode.length == 6) {
+                            context.read<AuthCubit>().checkToken(
+                                email: email, token: int.parse(tokenCode));
+                            context.read<AuthCubit>().tokenField =
+                                int.parse(tokenCode);
+                          } else {
+                            showSnackBar(context, "messagexx", AppColors.redColor);
+                          }
+                        },
+                        buttonText: "verify token")
+                  ],
+                ),
+              if (state is AuthLoading) 
+                customCircularProgressIndicator(context: context)
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

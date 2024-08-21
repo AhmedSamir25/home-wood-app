@@ -49,7 +49,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   @override
   Widget build(BuildContext context) {
     final authCubit = context.read<AuthCubit>();
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if(state is ResetPasswordSuccess){
           GoRouter.of(context).pushReplacement(AppRouter.home);
@@ -57,42 +57,51 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
         if(state is FieldResetPassword){
           showSnackBar(context, state.message, AppColors.redColor);
         }
-        if(state is AuthLoading){
-          customCircularProgressIndicator(context:context);
-        }
       },
-      child: Scaffold(
-        body: ListView(
-          children: [
-            SizedBox(height: 40.h,),
-            AuthTextField(controller: passwordController,
-                labelText: "Password",
-                suffixIcon: const Icon(Icons.password),
-                obscureText: true),
-            SizedBox(height: 10.h,),
-            AuthTextField(controller: passwordController2,
-                labelText: "Confirm Password",
-                suffixIcon: const Icon(Icons.password),
-                obscureText: true),
-            AuthButton(
-                onPressed: () {
-                  if (hasNumber && hasPasswordLength && hasUpperCase &&
-                      hasLowerCase && hasSpecialChar == true) {
-                    context.read<AuthCubit>().resetPassword(
-                        email: authCubit.email,
-                        password: passwordController.text,
-                        token: authCubit.tokenField);
-                  }
-                  validFunction(
-                    context: context,
-                    email: authCubit.email,
-                    password: passwordController.text,
-                  );
-                },
-                buttonText: "Reset")
-          ],
+      builder: (context, state) {
+        return  Scaffold(
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.h),
+          child: Stack(
+            children: [
+              ListView(
+                children: [
+                  SizedBox(height: 70.h,),
+                  AuthTextField(controller: passwordController,
+                      labelText: "Password",
+                      suffixIcon: const Icon(Icons.password),
+                      obscureText: true),
+                  SizedBox(height: 15.h,),
+                  AuthTextField(controller: passwordController2,
+                      labelText: "Confirm Password",
+                      suffixIcon: const Icon(Icons.password),
+                      obscureText: true),
+                  SizedBox(height: 15.h,),
+                  AuthButton(
+                      onPressed: () {
+                        if (hasNumber && hasPasswordLength && hasUpperCase &&
+                            hasLowerCase && hasSpecialChar == true) {
+                          context.read<AuthCubit>().resetPassword(
+                              email: authCubit.email,
+                              password: passwordController.text,
+                              token: authCubit.tokenField);
+                        }
+                        validFunction(
+                          context: context,
+                          email: authCubit.email,
+                          password: passwordController.text,
+                        );
+                      },
+                      buttonText: "Reset")
+                ],
+              ),
+              if(state is AuthLoading)
+                 customCircularProgressIndicator(context:context)
+            ],
+          ),
         ),
-      ),
+      );
+      },
     );
   }
 }
