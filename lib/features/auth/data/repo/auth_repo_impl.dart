@@ -23,10 +23,15 @@ class AuthRepoImpl implements AuthRepo {
         password: password,
       );
       return Right(response);
-    } on DioException catch (dioError) {
-      return Left(ServerFailure.fromDioError(dioError));
-    } catch (e) {
-      return Left(ServerFailure('An unexpected error occurred. Please try again.'));
+    }catch (e) {
+      if (e is DioException) {
+        return left(
+          ServerFailure.fromDioError(e.type),
+        );
+      }
+      return left(
+        ServerFailure(e.toString()),
+      );
     }
   }
 
@@ -35,10 +40,15 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final response = await apiService.forgetPassword(email: email);
       return Right(response);
-    } on DioException catch (dioError) {
-      return Left(ServerFailure.fromDioError(dioError));
-    } catch (e) {
-      return Left(ServerFailure('An unexpected error occurred. Please try again.'));
+    }catch (e) {
+      if (e is DioException) {
+        return left(
+          ServerFailure.fromDioError(e.type),
+        );
+      }
+      return left(
+        ServerFailure(e.toString()),
+      );
     }
   }
 
@@ -47,10 +57,18 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final response = await apiService.loginUser(email: email, password: password);
       return Right(response);
-    } on DioException catch (dioError) {
-      return Left(ServerFailure.fromDioError(dioError));
+    } catch (e) {
+      if (e is DioException) {
+        return left(
+          ServerFailure.fromDioError(e.type),
+        );
+      }
+      return left(
+        ServerFailure(e.toString()),
+      );
     }
   }
+  
 
   @override
   Future<Either<Failure, AuthModel>> resetPassword({
@@ -61,10 +79,15 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final response = await apiService.resetPassword(email: email, token: token, password: password);
       return Right(response);
-    } on DioException catch (dioError) {
-      return Left(ServerFailure.fromDioError(dioError));
-    } catch (e) {
-      return Left(ServerFailure('An unexpected error occurred. Please try again.'));
+    }catch (e) {
+      if (e is DioException) {
+        return left(
+          ServerFailure.fromDioError(e.type),
+        );
+      }
+      return left(
+        ServerFailure(e.toString()),
+      );
     }
   }
 
@@ -76,10 +99,15 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final response = await apiService.checkToken(email: email, token: token);
       return Right(response);
-    } on DioException catch (dioError) {
-      return Left(ServerFailure.fromDioError(dioError));
-    } catch (e) {
-      return Left(ServerFailure('An unexpected error occurred. Please try again.'));
+    }catch (e) {
+      if (e is DioException) {
+        return left(
+          ServerFailure.fromDioError(e.type),
+        );
+      }
+      return left(
+        ServerFailure(e.toString()),
+      );
     }
   }
 }
