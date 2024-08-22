@@ -45,7 +45,10 @@ class CheckTokenView extends StatelessWidget {
                       borderColor: AppColors.amberColor,
                       showFieldAsBox: true,
                       onCodeChanged: (String code) {
-                        tokenCode += code;
+                        tokenCode = code;
+                      },
+                      onSubmit: (String code) {
+                        tokenCode = code; 
                       },
                     ),
                     SizedBox(
@@ -53,18 +56,21 @@ class CheckTokenView extends StatelessWidget {
                     ),
                     AuthButton(
                         onPressed: () {
+                          print("$tokenCode + $email");
                           if (tokenCode.length == 6) {
+                            int codeToken = int.parse(tokenCode);
                             context.read<AuthCubit>().checkToken(
-                                email: email, token: int.parse(tokenCode));
-                            context.read<AuthCubit>().tokenField =
-                                int.parse(tokenCode);
+                                email: email, token: codeToken);
+                            context.read<AuthCubit>().tokenField = codeToken;
+                          } else {
+                            showSnackBar(context, ConfingLang.localizations['invalidTokenLength'], AppColors.redColor);
                           }
                         },
-                        buttonText: ConfingLang.localizations['verifyToken'])
+                        buttonText: ConfingLang.localizations['verifyToken']),
                   ],
                 ),
-              if (state is AuthLoading) 
-                customCircularProgressIndicator(context: context)
+                if (state is AuthLoading) 
+                  customCircularProgressIndicator(context: context)
               ],
             ),
           ),

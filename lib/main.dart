@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:homewood/core/helper/storage/save_userid.dart';
 import 'package:homewood/core/localization/confing_lang.dart';
 import 'package:homewood/core/localization/cubit/localization_cubit_cubit.dart';
 import 'package:homewood/core/router/app_router.dart';
@@ -11,11 +12,12 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
   await ConfingLang.loadlanguage(ConfingLang.currentLanguage);
-  runApp(const MyApp());
+  await SaveUserId.cacheInitialization();
+  runApp(const HomeWoodApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class HomeWoodApp extends StatelessWidget {
+  const HomeWoodApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

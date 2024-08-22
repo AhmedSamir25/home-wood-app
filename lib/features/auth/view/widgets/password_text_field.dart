@@ -14,6 +14,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     return AuthTextField(
         controller: widget.controller,
         labelText: "Password",
+        type: TextInputType.text,
         suffixIcon: IconButton(icon: const Icon(Icons.password),onPressed: (){
           setState(() {
             passwordObscure = !passwordObscure;

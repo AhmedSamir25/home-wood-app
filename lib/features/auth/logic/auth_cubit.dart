@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homewood/core/helper/storage/save_userid.dart';
 import 'package:homewood/core/localization/confing_lang.dart';
 import 'package:homewood/core/service/service_lacetor.dart';
 import 'package:homewood/features/auth/data/repo/auth_repo.dart';
@@ -9,6 +10,7 @@ class AuthCubit extends Cubit<AuthState> {
   final authRepo = getIt<AuthRepo>();
   int tokenField = 0 ;
   String email = "";
+  SaveUserId saveUserId = SaveUserId();
   AuthCubit() : super(AuthInitial());
   void createUser(
       {required String name, required String email, required String password}) async{
@@ -20,6 +22,7 @@ class AuthCubit extends Cubit<AuthState> {
         },
         (users) {
           if (users.statusText == 'Ok') {
+            saveUserId.setUserId(userId: users.userId!);
             emit(CreateUserSuccess());
           } else {
             emit(FieldCreateUser(message: ConfingLang.localizations["unexpectedError"]));
@@ -39,6 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
         },
             (users) {
           if (users.statusText == 'Ok') {
+            saveUserId.setUserId(userId: users.userId!);
             emit(LoginUserSuccess());
           } else {
             emit(FieldLoginUser(message: ConfingLang.localizations["unexpectedError"]));

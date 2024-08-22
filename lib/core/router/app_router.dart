@@ -1,8 +1,9 @@
 import 'package:go_router/go_router.dart';
+import 'package:homewood/core/helper/check_user_login.dart';
 import 'package:homewood/features/auth/view/forget_password_view.dart';
-import 'package:homewood/features/auth/view/signup_view.dart';
 import 'package:homewood/features/auth/view/widgets/check_token_view.dart';
 import 'package:homewood/features/auth/view/widgets/reset_password_view.dart';
+import 'package:homewood/features/home/view/home_view.dart';
 
 import '../../features/auth/view/signin_view.dart';
 
@@ -16,7 +17,7 @@ abstract class AppRouter {
   static final router = GoRouter(routes: [
     GoRoute(
       path: home,
-      builder: (context, state) => const SignupView(),
+      builder: (context, state) => const CheckUserLogin(),
     ),
     GoRoute(path: signIn,
     builder: (context, state) => const SignInView(),
@@ -29,6 +30,9 @@ abstract class AppRouter {
     ),
     GoRoute(path: resetPasswordView,
       builder:  (context, state) => const ResetPasswordView(),
-    )
+    ),
+    GoRoute(path: homeView,
+      builder: (context, state) => const HomeView(),
+    ),
   ]);
 }

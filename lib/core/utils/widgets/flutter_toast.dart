@@ -5,10 +5,10 @@ void flutterToast({required Color backgroundColor,required Color textColor, requ
   Fluttertoast.showToast(
       msg: textToast,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: backgroundColor,
       textColor: textColor,
-      fontSize: 16.0.sp,
+      fontSize: 11.0.sp,
   );
 }

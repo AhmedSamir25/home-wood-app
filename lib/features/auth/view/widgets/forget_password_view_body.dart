@@ -43,6 +43,7 @@ class ForgetPasswordViewBody extends StatelessWidget {
                   AuthTextField(
                       controller: emailController,
                       labelText: "Email",
+                      type: TextInputType.emailAddress,
                       suffixIcon: const Icon(Icons.email),
                       obscureText: false),
                   SizedBox(
@@ -53,6 +54,10 @@ class ForgetPasswordViewBody extends StatelessWidget {
                         if (!EmailValidator.validate(emailController.text)) {
                           showSnackBar(context, ConfingLang.localizations['validEmail'], AppColors.redColor);
                           return;
+                        }else{
+                          context.read<AuthCubit>().email = emailController.text;
+                          context.read<AuthCubit>().forgetPassword(email: emailController.text);
+                          
                         }
                       },
                       buttonText: ConfingLang.localizations['sendToken'])

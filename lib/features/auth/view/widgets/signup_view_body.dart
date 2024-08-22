@@ -79,6 +79,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                     AuthTextField(
                       controller: nameController,
                       labelText: "Name",
+                      type: TextInputType.name,
                       suffixIcon: const Icon(Icons.person),
                       obscureText: false,
                     ),
@@ -88,6 +89,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                     AuthTextField(
                       controller: emailController,
                       labelText: "Email",
+                      type: TextInputType.emailAddress,
                       suffixIcon: const Icon(Icons.email),
                       obscureText: false,
                     ),

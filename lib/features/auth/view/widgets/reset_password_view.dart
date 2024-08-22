@@ -20,13 +20,13 @@ class ResetPasswordView extends StatelessWidget {
 
     final passwordController2 = TextEditingController();
     final RegExp passwordRegExp = RegExp(
-      r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$])[A-Za-z\d@#$]{8,}$',
+      r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$!%_-])[A-Za-z\d@#$]{8,}$',
     );
     final authCubit = context.read<AuthCubit>();
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is ResetPasswordSuccess) {
-          GoRouter.of(context).pushReplacement(AppRouter.home);
+          GoRouter.of(context).pushReplacement(AppRouter.signIn);
         }
         if (state is FieldResetPassword) {
           showSnackBar(context, state.message, AppColors.redColor);
@@ -46,6 +46,7 @@ class ResetPasswordView extends StatelessWidget {
                     AuthTextField(
                         controller: passwordController,
                         labelText: "Password",
+                        type: TextInputType.text,
                         suffixIcon: const Icon(Icons.password),
                         obscureText: true),
                     SizedBox(
@@ -54,6 +55,7 @@ class ResetPasswordView extends StatelessWidget {
                     AuthTextField(
                         controller: passwordController2,
                         labelText: "Confirm Password",
+                        type: TextInputType.text,
                         suffixIcon: const Icon(Icons.password),
                         obscureText: true),
                     SizedBox(

@@ -1,14 +1,16 @@
 class AuthModel {
+  int? userId; 
   String? name;
   String? email;
   String? password;
   String? msg;
   String? statusText;
 
-  AuthModel({this.name, this.email, this.password, this.msg,this.statusText});
+  AuthModel({this.userId, this.name, this.email, this.password, this.msg,this.statusText});
 
   factory AuthModel.fromJson(Map<String, dynamic> json) {
     return AuthModel(
+      userId : json['id'] as int?,
       name: json['name'] as String?,
       email: json['email'] as String?,
       password: json['password'] as String?,
