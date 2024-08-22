@@ -1,22 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:homewood/core/helper/storage/save_userid.dart';
+import 'package:homewood/core/localization/confing_lang.dart';
+import 'package:homewood/core/localization/cubit/localization_cubit_cubit.dart';
 import 'package:homewood/core/router/app_router.dart';
+import 'package:homewood/core/service/service_lacetor.dart';
+import 'package:homewood/features/auth/logic/auth_cubit.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  setupServiceLocator();
+  await ConfingLang.loadlanguage(ConfingLang.currentLanguage);
+  await SaveUserId.cacheInitialization();
+  runApp(const HomeWoodApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class HomeWoodApp extends StatelessWidget {
+  const HomeWoodApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-     debugShowCheckedModeBanner: false,
-     routerConfig: AppRouter.router,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthCubit(),),
+        BlocProvider(create: (context) => LocalizationCubitCubit()..loadInitialLanguage(),)
+      ],
+      child: ScreenUtilInit(
+          designSize: const Size(360, 690),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (_, child) {
+            return MaterialApp.router(
+              title: 'Home Wood',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                useMaterial3: true,
+              ),
+              debugShowCheckedModeBanner: false,
+              routerConfig: AppRouter.router,
+            );
+          }),
     );
   }
 }
