@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:homewood/core/functions/show_snack_bar.dart';
 import 'package:homewood/core/functions/signup_vaild_fuction.dart';
+import 'package:homewood/core/localization/confing_lang.dart';
 import 'package:homewood/core/router/app_router.dart';
 import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/utils/widgets/flutter_toast.dart';
@@ -54,11 +55,11 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         listener: (context, state) {
           if(state is CreateUserSuccess){
             flutterToast(backgroundColor: AppColors.amberColor,
-                textColor: AppColors.blackColor, textToast: "textToast");
+                textColor: AppColors.blackColor, textToast: ConfingLang.localizations['successfullycreated']);
             GoRouter.of(context).pushReplacement(AppRouter.homeView);
           }
           if(state is FieldCreateUser){
-            showSnackBar(context, "message", AppColors.redColor);
+            showSnackBar(context, state.message, AppColors.redColor);
           }
         },
         builder: (context, state) {
@@ -68,10 +69,9 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: ListView(
                   children: [
-                    const HeadBodyText(
-                      headText: "Sign up",
-                      bodyText:
-                          "Join us to find the best \n     types of furniture",
+                    HeadBodyText(
+                      headText: ConfingLang.localizations['signUp'],
+                      bodyText: ConfingLang.localizations['bodySignUp'],
                     ),
                     SizedBox(
                       height: 26.h,
@@ -127,7 +127,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                                 password: passwordController.text);
                           }
                         },
-                        buttonText: "Sign Up"),
+                        buttonText: ConfingLang.localizations['signUp']),
                     SizedBox(
                       height: 17.h,
                     ),
@@ -135,8 +135,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                       onPressed: () {
                         GoRouter.of(context).push(AppRouter.signIn);
                       },
-                      text: "do you have account?",
-                      textButton: "Sign in",
+                      text: ConfingLang.localizations['doYouHaveAccount'],
+                      textButton: ConfingLang.localizations["signIn"],
                     ),
                   ],
                 ),

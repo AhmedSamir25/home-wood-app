@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:homewood/core/functions/show_snack_bar.dart';
+import 'package:homewood/core/localization/confing_lang.dart';
 import 'package:homewood/core/router/app_router.dart';
 import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/utils/widgets/circular_progress_indicator.dart';
@@ -50,20 +51,11 @@ class ForgetPasswordViewBody extends StatelessWidget {
                   AuthButton(
                       onPressed: () {
                         if (!EmailValidator.validate(emailController.text)) {
-                          showSnackBar(context, "message", AppColors.redColor);
+                          showSnackBar(context, ConfingLang.localizations['validEmail'], AppColors.redColor);
                           return;
                         }
-                        if (emailController.text.isNotEmpty) {
-                          context
-                              .read<AuthCubit>()
-                              .forgetPassword(email: emailController.text);
-                          context.read<AuthCubit>().email =
-                              emailController.text;
-                        } else {
-                          showSnackBar(context, "message", AppColors.redColor);
-                        }
                       },
-                      buttonText: "send token")
+                      buttonText: ConfingLang.localizations['sendToken'])
                 ],
               ),
               if (state is AuthLoading)

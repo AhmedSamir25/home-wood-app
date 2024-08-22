@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:homewood/core/localization/confing_lang.dart';
 
 abstract class Failure {
   final String errMessage;
@@ -12,19 +13,19 @@ class ServerFailure extends Failure {
   factory ServerFailure.fromDioError(DioExceptionType dioErrorType) {
     switch (dioErrorType) {
       case DioExceptionType.connectionTimeout:
-        return ServerFailure('Connection timed out. Please check your internet connection and try again.');
+        return ServerFailure(ConfingLang.localizations['connectionTimed']);
       case DioExceptionType.sendTimeout:
         return ServerFailure('Sending data took too long. Please check your network connection and try again.');
       case DioExceptionType.receiveTimeout:
-        return ServerFailure('Receiving data took too long. Please check your network connection and try again.');
+        return ServerFailure(ConfingLang.localizations["receiveTimeout"]);
       case DioExceptionType.badResponse:
-        return ServerFailure('An error occurred while processing the request. Please try again.');
+        return ServerFailure(ConfingLang.localizations['badResponse']);
       case DioExceptionType.cancel:
-        return ServerFailure('The request was cancelled. Please try again.');
+        return ServerFailure(ConfingLang.localizations['cancelResponse']);
       case DioExceptionType.connectionError:
-        return ServerFailure('There was a connection problem. Please check your internet connection and try again.');
+        return ServerFailure(ConfingLang.localizations['connectionError']);
       default:
-        return ServerFailure('An unexpected error occurred. Please try again later');
+        return ServerFailure(ConfingLang.localizations['unexpectedError']);
     }
   }
 

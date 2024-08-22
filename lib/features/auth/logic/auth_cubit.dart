@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homewood/core/localization/confing_lang.dart';
 import 'package:homewood/core/service/service_lacetor.dart';
 import 'package:homewood/features/auth/data/repo/auth_repo.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class AuthCubit extends Cubit<AuthState> {
           if (users.statusText == 'Ok') {
             emit(CreateUserSuccess());
           } else {
-            emit(FieldCreateUser(message: "failure.errMessage"));
+            emit(FieldCreateUser(message: ConfingLang.localizations["unexpectedError"]));
           }
         },
       );
@@ -40,7 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
           if (users.statusText == 'Ok') {
             emit(LoginUserSuccess());
           } else {
-            emit(FieldLoginUser(message: "failure.errMessage"));
+            emit(FieldLoginUser(message: ConfingLang.localizations["unexpectedError"]));
           }
         },
       );
@@ -58,7 +59,7 @@ class AuthCubit extends Cubit<AuthState> {
           if (users.statusText == 'Ok') {
             emit(SendTokenSuccess());
           } else {
-            emit(FieldSendToken(message: "failure.errMessage"));
+            emit(FieldSendToken(message: ConfingLang.localizations["unexpectedError"]));
           }
         },
       );
@@ -76,7 +77,7 @@ class AuthCubit extends Cubit<AuthState> {
           if (users.statusText == 'Ok') {
             emit(ResetPasswordSuccess());
           } else {
-            emit(FieldResetPassword(message: "failure.errMessage"));
+            emit(FieldResetPassword(message: ConfingLang.localizations["unexpectedError"]));
           }
         },
       );
@@ -92,7 +93,7 @@ class AuthCubit extends Cubit<AuthState> {
           if (users.statusText == 'Ok') {
             emit(CheckTokenSuccess());
           } else {
-            emit(FieldCheckToken(message: "failure.errMessage"));
+            emit(FieldCheckToken(message: ConfingLang.localizations["unexpectedError"]));
           }
         },
       );

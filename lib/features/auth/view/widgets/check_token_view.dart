@@ -4,6 +4,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:homewood/core/functions/show_snack_bar.dart';
+import 'package:homewood/core/localization/confing_lang.dart';
 import 'package:homewood/core/router/app_router.dart';
 import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/utils/widgets/circular_progress_indicator.dart';
@@ -57,11 +58,9 @@ class CheckTokenView extends StatelessWidget {
                                 email: email, token: int.parse(tokenCode));
                             context.read<AuthCubit>().tokenField =
                                 int.parse(tokenCode);
-                          } else {
-                            showSnackBar(context, "messagexx", AppColors.redColor);
                           }
                         },
-                        buttonText: "verify token")
+                        buttonText: ConfingLang.localizations['verifyToken'])
                   ],
                 ),
               if (state is AuthLoading) 

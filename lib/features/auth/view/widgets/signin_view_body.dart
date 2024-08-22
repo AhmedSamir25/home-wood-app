@@ -1,8 +1,10 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:homewood/core/functions/show_snack_bar.dart';
+import 'package:homewood/core/localization/confing_lang.dart';
 import 'package:homewood/core/router/app_router.dart';
 import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/theme/style_text.dart';
@@ -24,8 +26,10 @@ class SignInViewBody extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginUserSuccess) {
-          flutterToast(backgroundColor: AppColors.amberColor, textColor: AppColors.blackColor,
-              textToast: "welcome back");
+          flutterToast(
+              backgroundColor: AppColors.amberColor,
+              textColor: AppColors.blackColor,
+              textToast: ConfingLang.localizations['welcomeback']);
           GoRouter.of(context).pushReplacement(AppRouter.homeView);
         }
         if (state is FieldLoginUser) {
@@ -33,15 +37,18 @@ class SignInViewBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        final RegExp passwordRegExp = RegExp(
+          r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$])[A-Za-z\d@#$]{8,}$',
+        );
         return Stack(
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: ListView(
                 children: [
-                  const HeadBodyText(
-                    headText: "Sign In",
-                    bodyText: "Welcome back",
+                  HeadBodyText(
+                    headText: ConfingLang.localizations['signIn'],
+                    bodyText: ConfingLang.localizations['welcomeback'],
                   ),
                   SizedBox(
                     height: 30.h,
@@ -68,31 +75,44 @@ class SignInViewBody extends StatelessWidget {
                         onPressed: () {
                           GoRouter.of(context).push(AppRouter.forgetPassword);
                         },
-                        child: Text('Forget Password?',
+                        child: Text(ConfingLang.localizations['forgetPassword'],
                             style: StyleText.textStyle14),
                       )),
                   HaveAccountOrNot(
                     onPressed: () {
                       GoRouter.of(context).pop();
                     },
-                    text: "don’t you have account?",
-                    textButton: "Sign Up",
+                    text: ConfingLang.localizations['donthaveaccount'],
+                    textButton: ConfingLang.localizations['signUp'],
                   ),
                   SizedBox(
                     height: 10.h,
                   ),
                   AuthButton(
                       onPressed: () {
+                        if (emailController.text.isEmpty &&
+                            passwordController.text.isEmpty) {
+                          showSnackBar(context, ConfingLang.localizations["pleaseFealAll"],
+                              AppColors.redColor);
+                          return;
+                        }
+                        if (!EmailValidator.validate(emailController.text)) {
+                          showSnackBar(context, ConfingLang.localizations['validEmail'], AppColors.redColor);
+                          return;
+                        }
+                        if (!passwordRegExp.hasMatch(passwordController.text)) {
+                          showSnackBar(
+                              context, ConfingLang.localizations['validPassword'], AppColors.redColor);
+                          return;
+                        }
                         if (emailController.text.isNotEmpty &&
                             passwordController.text.isNotEmpty) {
                           context.read<AuthCubit>().loginUser(
                               email: emailController.text,
                               password: passwordController.text);
-                        } else {
-                          showSnackBar(context, "message", AppColors.redColor);
                         }
                       },
-                      buttonText: "Sign In")
+                      buttonText: ConfingLang.localizations['signIn'])
                 ],
               ),
             ),
