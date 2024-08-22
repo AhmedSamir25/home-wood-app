@@ -6,6 +6,7 @@ import 'package:homewood/core/localization/confing_lang.dart';
 import 'package:homewood/core/localization/cubit/localization_cubit_cubit.dart';
 import 'package:homewood/core/router/app_router.dart';
 import 'package:homewood/core/service/service_lacetor.dart';
+import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/features/auth/logic/auth_cubit.dart';
 
 void main() async{
@@ -33,7 +34,7 @@ class HomeWoodApp extends StatelessWidget {
             return MaterialApp.router(
               title: 'Home Wood',
               theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                colorScheme: ColorScheme.fromSeed(seedColor: AppColors.amberColor),
                 useMaterial3: true,
               ),
               debugShowCheckedModeBanner: false,
