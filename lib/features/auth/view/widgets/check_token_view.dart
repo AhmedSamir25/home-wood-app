@@ -56,7 +56,6 @@ class CheckTokenView extends StatelessWidget {
                     ),
                     AuthButton(
                         onPressed: () {
-                          print("$tokenCode + $email");
                           if (tokenCode.length == 6) {
                             int codeToken = int.parse(tokenCode);
                             context.read<AuthCubit>().checkToken(
