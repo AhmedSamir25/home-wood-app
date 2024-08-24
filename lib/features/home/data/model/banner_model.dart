@@ -1,47 +1,46 @@
 class BannerModel {
-  List<Banners>? banners;
+  List<Banner>? banners;
   String? msg;
   String? statusText;
 
   BannerModel({this.banners, this.msg, this.statusText});
 
-  BannerModel.fromJson(Map<String, dynamic> json) {
-    if (json['banners'] != null) {
-      banners = <Banners>[];
-      json['banners'].forEach((v) {
-        banners!.add(Banners.fromJson(v));
-      });
-    }
-    msg = json['msg'];
-    statusText = json['statusText'];
+  factory BannerModel.fromJson(Map<String, dynamic> json) {
+    return BannerModel(
+      banners: (json['banners'] as List<dynamic>?)
+          ?.map((e) => Banner.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      msg: json['msg'] as String?,
+      statusText: json['statusText'] as String?,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (banners != null) {
-      data['banners'] = banners!.map((v) => v.toJson()).toList();
-    }
-    data['msg'] = msg;
-    data['statusText'] = statusText;
-    return data;
+    return {
+      'banners': banners?.map((e) => e.toJson()).toList(),
+      'msg': msg,
+      'statusText': statusText,
+    };
   }
 }
 
-class Banners {
+class Banner {
   int? bannerId;
   String? bannerImage;
 
-  Banners({this.bannerId, this.bannerImage});
+  Banner({this.bannerId, this.bannerImage});
 
-  Banners.fromJson(Map<String, dynamic> json) {
-    bannerId = json['banner_id'];
-    bannerImage = json['banner_image'];
+  factory Banner.fromJson(Map<String, dynamic> json) {
+    return Banner(
+      bannerId: json['banner_id'] as int?,
+      bannerImage: json['banner_image'] as String?,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['banner_id'] = bannerId;
-    data['banner_image'] = bannerImage;
-    return data;
+    return {
+      'banner_id': bannerId,
+      'banner_image': bannerImage,
+    };
   }
 }

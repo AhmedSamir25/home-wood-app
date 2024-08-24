@@ -8,6 +8,8 @@ import 'package:homewood/core/router/app_router.dart';
 import 'package:homewood/core/service/service_lacetor.dart';
 import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/features/auth/logic/auth_cubit.dart';
+import 'package:homewood/features/home/data/repo/home_repo_impl.dart';
+import 'package:homewood/features/home/logic/banner_cubit/banner_cubit.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +26,8 @@ class HomeWoodApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit(),),
-        BlocProvider(create: (context) => LocalizationCubitCubit()..loadInitialLanguage(),)
+        BlocProvider(create: (context) => LocalizationCubitCubit()..loadInitialLanguage(),),
+        BlocProvider(create: (context) => BannerCubit( getIt.get<HomeRepoImpl>(),)..fetchBanners(),)
       ],
       child: ScreenUtilInit(
           designSize: const Size(360, 690),
