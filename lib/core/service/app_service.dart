@@ -51,4 +51,24 @@ class ApiService {
     );
     return AuthModel.fromJson(response.data);
   }
+
+  Future<AuthModel> getBanners() async {
+    var response = await _dio.get("$baseUrl/homewood/banner",
+    );
+    return AuthModel.fromJson(response.data);
+  }
+
+    Future<AuthModel> addBanner({required String imageBanner}) async {
+    var response = await _dio.post("$baseUrl/homewood/banner",data: {
+        "banner_image" : imageBanner
+      }
+    );
+    return AuthModel.fromJson(response.data);
+  }
+
+  Future<AuthModel> deleteBanner({required int bannerId}) async {
+    var response = await _dio.delete("$baseUrl/homewood/banner$bannerId",
+    );
+    return AuthModel.fromJson(response.data);
+  }
 }
