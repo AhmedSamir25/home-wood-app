@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:homewood/core/security/app_keys.dart';
 import 'package:homewood/features/auth/data/model/auth_model.dart';
+import 'package:homewood/features/home/data/model/banner_model.dart';
 
 class ApiService {
   final Dio _dio;
@@ -52,23 +53,23 @@ class ApiService {
     return AuthModel.fromJson(response.data);
   }
 
-  Future<AuthModel> getBanners() async {
+  Future<BannerModel> getBanners() async {
     var response = await _dio.get("$baseUrl/homewood/banner",
     );
-    return AuthModel.fromJson(response.data);
+    return BannerModel.fromJson(response.data);
   }
 
-    Future<AuthModel> addBanner({required String imageBanner}) async {
+    Future<BannerModel> addBanner({required String imageBanner}) async {
     var response = await _dio.post("$baseUrl/homewood/banner",data: {
         "banner_image" : imageBanner
       }
     );
-    return AuthModel.fromJson(response.data);
+    return BannerModel.fromJson(response.data);
   }
 
-  Future<AuthModel> deleteBanner({required int bannerId}) async {
+  Future<BannerModel> deleteBanner({required int bannerId}) async {
     var response = await _dio.delete("$baseUrl/homewood/banner$bannerId",
     );
-    return AuthModel.fromJson(response.data);
+    return BannerModel.fromJson(response.data);
   }
 }
