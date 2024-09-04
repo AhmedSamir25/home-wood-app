@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:homewood/core/security/app_keys.dart';
 import 'package:homewood/features/auth/data/model/auth_model.dart';
 import 'package:homewood/features/home/data/model/banner_model.dart';
+import 'package:homewood/features/home/data/model/categories_model.dart';
 
 class ApiService {
   final Dio _dio;
@@ -71,5 +72,9 @@ class ApiService {
     var response = await _dio.delete("$baseUrl/homewood/banner$bannerId",
     );
     return BannerModel.fromJson(response.data);
+  }
+  Future<CategoriesModel> getCategories() async{
+    var response = await _dio.get("$baseUrl/homewood/categories");
+    return CategoriesModel.fromJson(response.data);
   }
 }
