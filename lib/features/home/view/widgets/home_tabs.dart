@@ -29,6 +29,13 @@ class HomeTabs extends StatelessWidget {
               text: state.categories[i].categoryName,
             ));
           }
+           List<Widget> tabViews = List.generate(tabs.length, (index) {
+            if (index == 0) {
+              return const Text("data");
+            } else {
+              return const Text("data22");
+            }
+          });
           return DefaultTabController(
             initialIndex: 1,
             length: tabs.length,
@@ -54,9 +61,8 @@ class HomeTabs extends StatelessWidget {
                 SizedBox(
                   height: 100,
                   child: TabBarView(
-                    children: tabs.map((tab) {
-                      return Center(child: Text(tab.text ?? ""));
-                    }).toList(),
+                    
+                    children: tabViews,
                   ),
                 ),
               ],
