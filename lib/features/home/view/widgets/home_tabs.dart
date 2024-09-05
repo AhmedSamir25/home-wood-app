@@ -2,6 +2,8 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:homewood/core/theme/color_app.dart';
+import 'package:homewood/core/utils/widgets/custom_shimmer.dart';
 import 'package:homewood/features/home/logic/categories_cubit/categories_cubit.dart';
 
 class HomeTabs extends StatelessWidget {
@@ -16,7 +18,12 @@ class HomeTabs extends StatelessWidget {
     ];
     return BlocBuilder<CategoriesCubit, CategoriesState>(
       builder: (context, state) {
-        if (state is CategoriesSuccess) {
+        if (state is CategoriesLoading) {
+          return SizedBox(
+          height: 43.h,
+          child: CustomShimmer(shimmerWidth: 110.w, shimmerHeight: 40.h,axis: Axis.horizontal,));
+        }
+        else if (state is CategoriesSuccess) {
           for (var i = 0; i < state.categories.length; i++) {
             tabs.add(Tab(
               text: state.categories[i].categoryName,
@@ -32,17 +39,17 @@ class HomeTabs extends StatelessWidget {
                   tabs: tabs,
                   height: 40.h,
                   width: 110.w,
-                  backgroundColor: Colors.black,
+                  backgroundColor: AppColors.blackColor,
                   contentCenter: true,
                   buttonMargin: EdgeInsets.only(right: 18.w),
-                  unselectedBackgroundColor: Colors.grey[300],
+                  unselectedBackgroundColor: AppColors.grayColor300,
                   labelStyle: TextStyle(
                     fontSize: 15.sp,
-                    color: Colors.amber,
+                    color: AppColors.amberColor,
                     fontWeight: FontWeight.bold
                   ),
                   contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
-                  physics: const ClampingScrollPhysics(), // لمنع الحركة السريعة للتبويبات
+                  physics: const ClampingScrollPhysics(), 
                 ),
                 SizedBox(
                   height: 100,

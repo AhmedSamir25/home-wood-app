@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:homewood/core/utils/widgets/custom_shimmer.dart';
 import 'package:homewood/features/home/logic/banner_cubit/banner_cubit.dart';
 
 class SwiperBanner extends StatelessWidget {
@@ -11,6 +12,13 @@ class SwiperBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BannerCubit, BannerState>(
       builder: (context, state) {
+        if (state is BannerLoading) {
+          return SizedBox(
+              height: 152.h,
+            child: CustomShimmer(shimmerWidth: double.infinity,
+             shimmerHeight: 150.h, axis: Axis.vertical),
+          );
+        }
         if (state is BannerSuccess) {
           return SizedBox(
             height: 150.h,
