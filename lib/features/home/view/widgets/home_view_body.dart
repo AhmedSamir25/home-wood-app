@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:homewood/features/home/view/widgets/home_tabs.dart';
 import 'package:homewood/features/home/view/widgets/swiper_banner.dart';
 import 'package:homewood/features/home/view/widgets/custom_app_bar.dart';
 import 'package:homewood/features/home/view/widgets/search_text_field.dart';
@@ -19,7 +20,9 @@ class HomeViewBody extends StatelessWidget {
             SizedBox(height: 18.h,),
             const SearchTextField(),
             SizedBox(height: 18.h,),
-            const SwiperBanner()
+            const SwiperBanner(),
+            SizedBox(height: 18.h,),
+            const HomeTabs(),
           ],
         ),
       ),
