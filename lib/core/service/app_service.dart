@@ -3,6 +3,7 @@ import 'package:homewood/core/security/app_keys.dart';
 import 'package:homewood/features/auth/data/model/auth_model.dart';
 import 'package:homewood/features/home/data/model/banner_model.dart';
 import 'package:homewood/features/home/data/model/categories_model.dart';
+import 'package:homewood/features/home/data/model/product_model.dart';
 
 class ApiService {
   final Dio _dio;
@@ -76,5 +77,9 @@ class ApiService {
   Future<CategoriesModel> getCategories() async{
     var response = await _dio.get("$baseUrl/homewood/categories");
     return CategoriesModel.fromJson(response.data);
+  }
+  Future<ProductModel> getProduct({required int pageNumber}) async{
+    var response = await _dio.get("$baseUrl/homewood/products/$pageNumber");
+    return ProductModel.fromJson(response.data);
   }
 }
