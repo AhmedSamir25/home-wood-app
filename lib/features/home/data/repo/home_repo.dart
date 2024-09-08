@@ -8,4 +8,5 @@ abstract class HomeRepo {
   Future<Either<Failure, BannerModel>> getBanner();
   Future<Either<Failure, CategoriesModel>> getCategories();
   Future<Either<Failure, ProductModel>> getProducts({required int pageNumber});
+  Future<Either<Failure, ProductModel>> getProductsCategories({required int categoreyId});
 }

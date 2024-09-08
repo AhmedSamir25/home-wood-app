@@ -14,4 +14,12 @@ class ProductsCubit extends Cubit<ProductsState> {
     result.fold((failure) => emit(ProductsFailer(failure.errMessage)),
      (productModel)=> emit(GetProductsSuccess(productModel.products!.data ?? [])));
   }
+
+  Future<void> fetchProductsByCategories({required int categoreyId}) async{
+    emit(ProductsLoading());
+    var result = await homeRepo.getProductsCategories(categoreyId: categoreyId);
+    result.fold((failure) => emit(ProductsFailer(failure.errMessage)),
+     (productModel) => emit(GetProductsSuccess(productModel.products!.data?? []))
+     );
+  }
 }

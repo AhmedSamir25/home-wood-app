@@ -50,4 +50,17 @@ class HomeRepoImpl implements HomeRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+  
+  @override
+  Future<Either<Failure, ProductModel>> getProductsCategories({required int categoreyId}) async{
+    try {
+      ProductModel productModel = await apiService.getProductsByCategories(category: categoreyId);
+      return right(productModel); 
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e.type));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
 }

@@ -82,4 +82,8 @@ class ApiService {
     var response = await _dio.get("$baseUrl/homewood/products/$pageNumber");
     return ProductModel.fromJson(response.data);
   }
+  Future<ProductModel> getProductsByCategories({required int category}) async{
+    var response = await _dio.get("$baseUrl/homewood/products/category/$category");
+    return ProductModel.fromJson(response.data);
+  }
 }
