@@ -24,3 +24,19 @@ final class ProductsFailer extends ProductsState{
   @override
   List<Object> get props => [error];
 }
+
+final class ProductsCategoriesLoading extends ProductsState{}
+
+final class GetProductsCategoriesSuccess extends ProductsState{
+  final List<Data> products;
+  const GetProductsCategoriesSuccess(this.products);
+  @override
+  List<Object> get props => [products];
+}
+
+final class ProductsCategoriesFailer extends ProductsState{
+  final String error;
+  const ProductsCategoriesFailer(this.error);
+  @override
+  List<Object> get props => [error];
+}

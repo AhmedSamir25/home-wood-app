@@ -52,9 +52,9 @@ class HomeRepoImpl implements HomeRepo {
   }
   
   @override
-  Future<Either<Failure, ProductModel>> getProductsCategories({required int categoreyId}) async{
+  Future<Either<Failure, ProductModel>> getProductsCategories({required int categoreyId, required int pageNumber}) async{
     try {
-      ProductModel productModel = await apiService.getProductsByCategories(category: categoreyId);
+      ProductModel productModel = await apiService.getProductsByCategories(categoryId: categoreyId, pageNumber: pageNumber);
       return right(productModel); 
     } catch (e) {
       if (e is DioException) {

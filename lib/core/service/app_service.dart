@@ -79,11 +79,11 @@ class ApiService {
     return CategoriesModel.fromJson(response.data);
   }
   Future<ProductModel> getProducts({required int pageNumber}) async{
-    var response = await _dio.get("$baseUrl/homewood/products/$pageNumber");
+    var response = await _dio.get("$baseUrl/homewood/products=$pageNumber");
     return ProductModel.fromJson(response.data);
   }
-  Future<ProductModel> getProductsByCategories({required int category}) async{
-    var response = await _dio.get("$baseUrl/homewood/products/category/$category");
+  Future<ProductModel> getProductsByCategories({required int categoryId, required int pageNumber}) async{
+    var response = await _dio.get("$baseUrl/homewood/products/category=$categoryId/page_id=$pageNumber");
     return ProductModel.fromJson(response.data);
   }
 }

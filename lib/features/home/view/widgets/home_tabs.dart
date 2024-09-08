@@ -6,6 +6,7 @@ import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/utils/widgets/custom_shimmer.dart';
 import 'package:homewood/features/home/logic/categories_cubit/categories_cubit.dart';
 import 'package:homewood/features/home/view/widgets/custom_staggered_grid.dart';
+import 'package:homewood/features/home/view/widgets/custom_staggered_grid_products_categories.dart';
 
 class HomeTabs extends StatelessWidget {
   const HomeTabs({super.key});
@@ -34,7 +35,7 @@ class HomeTabs extends StatelessWidget {
             if (index == 0) {
               return const SingleChildScrollView(child: StaggeredGridAllProducts());
             } else {
-              return const Text("data22");
+              return SingleChildScrollView(child: CustomStaggeredGridProductsCategories(categoreyId: state.categories[index-1].categoryId! ));
             }
           });
           return DefaultTabController(

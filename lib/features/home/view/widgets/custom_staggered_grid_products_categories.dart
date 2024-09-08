@@ -6,15 +6,15 @@ import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/theme/style_text.dart';
 import 'package:homewood/features/home/logic/products_cubit/products_cubit.dart';
 
-class StaggeredGridAllProducts extends StatelessWidget {
-  const StaggeredGridAllProducts({super.key});
-
+class CustomStaggeredGridProductsCategories extends StatelessWidget {
+  const CustomStaggeredGridProductsCategories({super.key, required this.categoreyId});
+  final int categoreyId;
   @override
   Widget build(BuildContext context) {
-        BlocProvider.of<ProductsCubit>(context).fetchProducts();
+    BlocProvider.of<ProductsCubit>(context).fetchProductsByCategories(categoreyId: categoreyId, pageNumber: 1);
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
-        if (state is GetProductsSuccess) {
+        if (state is GetProductsCategoriesSuccess) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 10.0.h),
             child: StaggeredGrid.count(
@@ -42,8 +42,10 @@ class StaggeredGridAllProducts extends StatelessWidget {
               ),
             ),
           );
-        } else if (state is ProductsLoading) {
+        } else if (state is ProductsCategoriesLoading) {
           return const Center(child: CircularProgressIndicator());
+        }else if(state is ProductsCategoriesFailer){
+          return Center(child: Text(state.error));
         } else {
           return const Center(child: Text("Failed to load products"));
         }
