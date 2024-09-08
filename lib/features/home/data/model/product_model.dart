@@ -64,6 +64,7 @@ class Data {
   double? productRating;
   int? productRateCount;
   String? productDescription;
+  String? productImage;
 
   Data(
       {this.productId,
@@ -71,7 +72,9 @@ class Data {
       this.productPrice,
       this.productRating,
       this.productRateCount,
-      this.productDescription});
+      this.productDescription,
+      this.productImage,
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
@@ -80,6 +83,7 @@ class Data {
     productRating = json['product_rating'];
     productRateCount = json['product_rate_count'];
     productDescription = json['product_description'];
+    productImage = json['product_image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -90,6 +94,7 @@ class Data {
     data['product_rating'] = productRating;
     data['product_rate_count'] = productRateCount;
     data['product_description'] = productDescription;
+    data['product_image'] = productImage;
     return data;
   }
 }

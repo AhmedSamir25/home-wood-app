@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/utils/widgets/custom_shimmer.dart';
 import 'package:homewood/features/home/logic/categories_cubit/categories_cubit.dart';
+import 'package:homewood/features/home/view/widgets/custom_staggered_grid.dart';
 
 class HomeTabs extends StatelessWidget {
   const HomeTabs({super.key});
@@ -31,13 +32,13 @@ class HomeTabs extends StatelessWidget {
           }
            List<Widget> tabViews = List.generate(tabs.length, (index) {
             if (index == 0) {
-              return const Text("data");
+              return const SingleChildScrollView(child: StaggeredGridAllProducts());
             } else {
               return const Text("data22");
             }
           });
           return DefaultTabController(
-            initialIndex: 1,
+            initialIndex: 0,
             length: tabs.length,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,9 +60,8 @@ class HomeTabs extends StatelessWidget {
                   physics: const ClampingScrollPhysics(), 
                 ),
                 SizedBox(
-                  height: 100,
+                height: 293.h,
                   child: TabBarView(
-                    
                     children: tabViews,
                   ),
                 ),

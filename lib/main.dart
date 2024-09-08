@@ -11,6 +11,7 @@ import 'package:homewood/features/auth/logic/auth_cubit.dart';
 import 'package:homewood/features/home/data/repo/home_repo_impl.dart';
 import 'package:homewood/features/home/logic/banner_cubit/banner_cubit.dart';
 import 'package:homewood/features/home/logic/categories_cubit/categories_cubit.dart';
+import 'package:homewood/features/home/logic/products_cubit/products_cubit.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,7 @@ class HomeWoodApp extends StatelessWidget {
         BlocProvider(create: (context) => LocalizationCubitCubit()..loadInitialLanguage(),),
         BlocProvider(create: (context) => BannerCubit( getIt.get<HomeRepoImpl>(),)..fetchBanners(),),
         BlocProvider(create: (context) => CategoriesCubit(getIt.get<HomeRepoImpl>())..fetchCategories(),),
+        BlocProvider(create: (context)=> ProductsCubit(getIt.get<HomeRepoImpl>())..fetchProducts()),
       ],
       child: ScreenUtilInit(
           designSize: const Size(360, 690),
