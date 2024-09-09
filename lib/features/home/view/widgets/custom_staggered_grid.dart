@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homewood/core/theme/style_text.dart';
 import 'package:homewood/features/home/data/model/product_model.dart';
 import 'package:homewood/features/home/logic/products_cubit/products_cubit.dart';
+import 'package:homewood/features/home/view/widgets/shimmer_staggered_gird_loading.dart';
 
 class StaggeredGridAllProducts extends StatefulWidget {
   const StaggeredGridAllProducts({super.key});
@@ -88,7 +89,7 @@ class _StaggeredGridAllProductsState extends State<StaggeredGridAllProducts> {
             ),
           );
         } else if (state is ProductsLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const ShimmerStaggeredGirdLoading();
         } else if (state is ProductsFailer) {
           return Center(child: Text(state.error));
         } else {

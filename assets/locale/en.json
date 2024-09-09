@@ -20,5 +20,7 @@
     "badResponse" : "An error occurred while processing the request. Please try again.",
     "cancelResponse" : "The request was cancelled. Please try again.",
     "connectionError" : "There was a connection problem. Please check your internet connection and try again.",
-    "unexpectedError" : "An unexpected error occurred. Please try again later"
+    "unexpectedError" : "An unexpected error occurred. Please try again later",
+    "appbarHome" : "Find Your Most \n Fit Furniture",
+    "searchTextField" : "what are you looking for?"
 }

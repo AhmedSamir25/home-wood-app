@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:homewood/core/localization/confing_lang.dart';
 import 'package:homewood/core/theme/style_text.dart';
 
 class SearchTextField extends StatelessWidget {
@@ -10,7 +11,7 @@ class SearchTextField extends StatelessWidget {
     return TextField(
       decoration: InputDecoration(
       prefixIcon: Icon(Icons.search,size: 32.w,),
-      hintText: "what are you looking for?",
+      hintText: ConfingLang.localizations["searchTextField"],
       hintStyle: StyleText.textStyle18,
       contentPadding: EdgeInsets.all(11.w),
         fillColor: Colors.grey[200],
