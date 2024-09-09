@@ -33,9 +33,9 @@ class HomeTabs extends StatelessWidget {
           }
            List<Widget> tabViews = List.generate(tabs.length, (index) {
             if (index == 0) {
-              return const SingleChildScrollView(child: StaggeredGridAllProducts());
+              return const StaggeredGridAllProducts();
             } else {
-              return SingleChildScrollView(child: CustomStaggeredGridProductsCategories(categoreyId: state.categories[index-1].categoryId! ));
+              return CustomStaggeredGridProductsCategories(categoreyId: state.categories[index-1].categoryId! );
             }
           });
           return DefaultTabController(
@@ -61,7 +61,7 @@ class HomeTabs extends StatelessWidget {
                   physics: const ClampingScrollPhysics(), 
                 ),
                 SizedBox(
-                height: 293.h,
+                height: 273.h,
                   child: TabBarView(
                     children: tabViews,
                   ),
