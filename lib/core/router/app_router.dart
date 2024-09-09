@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:homewood/core/helper/check_user_login.dart';
+import 'package:homewood/core/utils/check_user_login.dart';
 import 'package:homewood/features/auth/view/forget_password_view.dart';
 import 'package:homewood/features/auth/view/widgets/check_token_view.dart';
 import 'package:homewood/features/auth/view/widgets/reset_password_view.dart';

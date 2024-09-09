@@ -38,7 +38,7 @@ class SignInViewBody extends StatelessWidget {
       },
       builder: (context, state) {
         final RegExp passwordRegExp = RegExp(
-          r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$!%_-])[A-Za-z\d@#$]{8,}$',
+          r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$])[A-Za-z\d@#$]{8,}$',
         );
         return Stack(
           children: [
