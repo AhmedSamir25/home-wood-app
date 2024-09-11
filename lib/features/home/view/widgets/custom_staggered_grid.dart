@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:homewood/core/router/app_router.dart';
 import 'package:homewood/core/theme/style_text.dart';
 import 'package:homewood/features/home/data/model/product_model.dart';
 import 'package:homewood/features/home/logic/products_cubit/products_cubit.dart';
@@ -68,20 +70,28 @@ class _StaggeredGridAllProductsState extends State<StaggeredGridAllProducts> {
                   products.length,
                   (index) {
                     final product = products[index];
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
+                    return GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).push(
+                        AppRouter.homeDetailsView,
+                        extra: product.productId
+                        );
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            ),
+                             child: Image.network(product.productImage!,fit: BoxFit.fill,width: 150.w,),
                           ),
-                           child: Image.network(product.productImage!,fit: BoxFit.fill,width: 150.w,),
-                        ),
-                        Text("${product.productPrice.toString()} \$", style: StyleText.textStyle18.copyWith(fontWeight: FontWeight.bold)),
-                        SizedBox(height: 4.h,),
-                        Text(product.productName!, style: StyleText.textStyle14),
-                      ],
+                          Text("${product.productPrice.toString()} \$", style: StyleText.textStyle18.copyWith(fontWeight: FontWeight.bold)),
+                          SizedBox(height: 4.h,),
+                          Text(product.productName!, style: StyleText.textStyle14),
+                        ],
+                      ),
                     );
                   },
                 ),
