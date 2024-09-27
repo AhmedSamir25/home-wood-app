@@ -8,6 +8,16 @@ abstract class StyleText{
     fontSize: 27.sp,
       fontFamily: "Rubik"
   );
+  static TextStyle textStyle27Bold = TextStyle(
+    fontSize: 27.sp,
+    fontFamily: "Rubik",
+    fontWeight: FontWeight.bold
+  );
+  static TextStyle textStyle25 = TextStyle(
+    fontSize: 25.sp,
+    fontFamily: "Rubik",
+    fontWeight: FontWeight.bold
+  );
   static TextStyle textStyle22 = TextStyle(
     fontSize: 22.sp,
     fontFamily: "Rubik",

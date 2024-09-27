@@ -8,7 +8,7 @@ class AppBarHomeDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.0.w,vertical: 20.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.0.w,vertical: 35.h),
       child:  Row(
         children: [
           IconAppBarHomeDetails(icon: Icon(Icons.arrow_back_ios_new,color: Colors.white,size: 26.w,), onPressed: () {  },),
