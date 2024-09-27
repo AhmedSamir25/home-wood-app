@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:homewood/core/security/app_keys.dart';
 import 'package:homewood/features/auth/data/model/auth_model.dart';
+import 'package:homewood/features/favorite/data/model/favorite_model.dart';
 import 'package:homewood/features/home/data/model/banner_model.dart';
 import 'package:homewood/features/home/data/model/categories_model.dart';
 import 'package:homewood/features/home/data/model/product_model.dart';
@@ -90,5 +91,14 @@ class ApiService {
   Future<ProductDetailsModel> getProductDetails({required int productId,required int userId}) async{
     var response = await _dio.get("$baseUrl/homewood/product/details=$productId/user=$userId");
     return ProductDetailsModel.fromJson(response.data);
+  }
+  Future<ProductModel> getFavoriteProducts({required int userId})async{
+    var response = await _dio.get("$baseUrl/homewood/favorite/products/user=$userId");
+    return ProductModel.fromJson(response.data);
+  }
+  Future<FavoriteModel> addProductsToFavorite({required int productId, userId})async{
+    var favorite = FavoriteModel(productId: productId, userId: userId);
+    var response = await _dio.post("$baseUrl/homewood/favorite/",data: favorite.toJson());
+    return FavoriteModel.fromJson(response.data);  
   }
 }
