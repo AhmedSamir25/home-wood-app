@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:homewood/core/theme/color_app.dart';
 import 'package:homewood/core/theme/style_text.dart';
+import 'package:homewood/features/home_details/view/widgets/add_to_cart_button.dart';
 
 class ProductDetailsInfo extends StatelessWidget {
   const ProductDetailsInfo(
@@ -9,9 +10,10 @@ class ProductDetailsInfo extends StatelessWidget {
       required this.productName,
       required this.productDescription,
       required this.productPrice,
-      required this.categoryName});
+      required this.categoryName, required this.inCart});
   final String productName, productDescription, categoryName;
   final double productPrice;
+  final bool inCart;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -66,7 +68,7 @@ class ProductDetailsInfo extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10.h),
-              
+              AddToCartButton(inCart: inCart,),
             ],
           ),
         ),

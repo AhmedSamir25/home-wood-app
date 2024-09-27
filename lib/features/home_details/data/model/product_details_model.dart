@@ -37,6 +37,8 @@ class Products {
   String? productImage;
   int? categoryId;
   String? categoryName;
+  bool? inCart;
+  bool? isFavorite;
 
   Products(
       {this.productId,
@@ -47,7 +49,9 @@ class Products {
       this.productDescription,
       this.productImage,
       this.categoryId,
-      this.categoryName});
+      this.categoryName,
+      this.inCart,
+      this.isFavorite});
 
   Products.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
@@ -59,6 +63,8 @@ class Products {
     productImage = json['product_image'];
     categoryId = json['category_id'];
     categoryName = json["category_name"];
+    inCart = json["is_in_cart"];
+    isFavorite = json["is_favorite"];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,6 +78,8 @@ class Products {
     data['product_image'] = productImage;
     data['category_id'] = categoryId;
     data['category_name'] = categoryName;
+    data['is_in_cart'] = inCart;
+    data['is_favorite'] = isFavorite;
     return data;
   }
 }

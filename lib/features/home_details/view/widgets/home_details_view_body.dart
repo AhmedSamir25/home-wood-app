@@ -25,8 +25,8 @@ class HomeDetailsViewBody extends StatelessWidget {
               productName: state.product[0].productName ?? "",
               productDescription: state.product[0].productDescription ?? "",
               categoryName: state.product[0].categoryName?? "",
-              productPrice:  state.product[0].productPrice ?? 0.0),
-              const AppBarHomeDetails(),
+              productPrice:  state.product[0].productPrice ?? 0.0, inCart: state.product[0].inCart??false,),
+              AppBarHomeDetails(inFavorite: state.product[0].isFavorite??false,),
             ],
           );
         } else {
