@@ -96,7 +96,7 @@ class ApiService {
     var response = await _dio.get("$baseUrl/homewood/favorite/products/user=$userId");
     return ProductModel.fromJson(response.data);
   }
-  Future<FavoriteModel> addProductsToFavorite({required int productId, userId})async{
+  Future<FavoriteModel> addProductsToFavorite({required int productId,required int userId})async{
     var favorite = FavoriteModel(productId: productId, userId: userId);
     var response = await _dio.post("$baseUrl/homewood/favorite/",data: favorite.toJson());
     return FavoriteModel.fromJson(response.data);  
